@@ -1,0 +1,25 @@
+{
+  "name": "backend-boilerplate",
+  "version": "0.0.1",
+  "description": "Backend boilerplate to be used in hackathons. With static documentation generation, mockup endpoints, configuration.",
+  "main": "index.js",
+  "repository": "https://github.com/Yengas/backend-boilerplate.git",
+  "author": "Yiğitcan UÇUM <yigitcan@hotmail.com.tr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node bin/index.js",
+    "serve:mock": "node bin/mock-api.js"
+  },
+  "dependencies": {
+    "boom": "^7.1.1",
+    "dotenv": "^5.0.0",
+    "hapi": "^17.2.0",
+    "hapi-swagger": "^9.0.2",
+    "joi": "^13.1.2"
+  },
+  "devDependencies": {
+    "felicity": "^2.4.5",
+    "inert": "^5.1.0",
+    "vision": "^5.3.1"
+  }
+}
