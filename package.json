@@ -15,11 +15,11 @@
     "dotenv": "^5.0.0",
     "hapi": "^17.2.0",
     "hapi-swagger": "^9.0.2",
-    "joi": "^13.1.2"
+    "inert": "^5.1.0",
+    "joi": "^13.1.2",
+    "vision": "^5.3.1"
   },
   "devDependencies": {
-    "felicity": "^2.4.5",
-    "inert": "^5.1.0",
-    "vision": "^5.3.1"
+    "felicity": "^2.4.5"
   }
 }
