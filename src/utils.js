@@ -20,7 +20,45 @@ function deepGet(obj, path){
   return keys.reduce((curr, key) => curr ? curr[key] : curr, obj);
 }
 
+/**
+ * Merges the given route to the original routes array by comparing path and method.
+ * @param original the original routes array
+ * @param toMerge the routes to override the original array with.
+ * @return {*[]}
+ */
+function mergeRoutes(original, toMerge){
+  return [
+    ...toMerge,
+    ...original.filter(o => !toMerge.find(m => m.path === o.path && m.method === o.method))
+  ];
+}
+
+/**
+ * Creates a helper function to generate hapijs routes given a controller and a route config.
+ * @param routeDefinitionOverrides the object which the helper function will use to override route definitions with.
+ * @param routeConfigOverrides the object which the helper function will use to override route.config with.
+ * @return a function to generate routes given controller and a base routeConfig.
+ */
+function createRouteGenerator(routeDefinitionOverrides, routeConfigOverrides){
+  return function createRouteForController(controller, routeConfig){
+    return {
+      ...routeConfig,
+      config: {
+        validate: controller.validate,
+        response: controller.response,
+        ...routeConfig.config,
+        ...routeConfigOverrides
+      },
+      handler: controller.handler,
+      ...routeDefinitionOverrides
+    };
+  };
+}
+
+
 module.exports = {
   requireFolderWithKeys,
-  deepGet
+  deepGet,
+  mergeRoutes,
+  createRouteGenerator
 };
