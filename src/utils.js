@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 
 function requireFolderWithKeys(folder, keys){
@@ -54,7 +53,6 @@ function createRouteGenerator(routeDefinitionOverrides, routeConfigOverrides){
     };
   };
 }
-
 
 module.exports = {
   requireFolderWithKeys,
