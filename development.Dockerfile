@@ -12,7 +12,7 @@ RUN npm install -g forever
 WORKDIR /application
 
 # Add the package.json and install dependencies.
-COPY package.json .
+COPY package*.json ./
 RUN npm install
 
 # Create a volume definition for app code, to a safe place that we can mount to.

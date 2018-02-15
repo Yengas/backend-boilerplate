@@ -9,7 +9,7 @@ RUN apk add --no-cache make gcc g++ python
 WORKDIR /application
 
 # Add package.json for dependency installation.
-ADD ./package.json ./package.json
+ADD ./package*.json ./
 # Install all dependencies for production.
 RUN npm install --only=production
 
