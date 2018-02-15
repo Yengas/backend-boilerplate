@@ -37,6 +37,6 @@
     "jest": "^22.3.0"
   },
   "jest": {
-    "testPathIgnorePatterns": ["<rootDir>/__tests__/helper.js"]
+    "testPathIgnorePatterns": ["__tests__/helper.js", "node_modules"]
   }
 }
