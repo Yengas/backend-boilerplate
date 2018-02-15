@@ -4,15 +4,21 @@ const { userSchema, requestSuccessfulSchema } = require('../schemas/controllers/
 
 module.exports = ({}) => ({
   indexGet: {
-    validate: {},
-    response: { schema: userSchema },
+    config: {
+      validate: {},
+      response: {schema: userSchema},
+      description: 'list users.',
+    },
     handler: async function(){
       return Boom.notImplemented();
     }
   },
   indexPost: {
-    validate: { payload: Joi.object().keys({ id: Joi.number().required() }).label('User post request.') },
-    response: { schema: requestSuccessfulSchema },
+    config: {
+      validate: {payload: Joi.object().keys({id: Joi.number().required()}).label('User post request.')},
+      response: {schema: requestSuccessfulSchema},
+      description: 'change user properties.',
+    },
     handler: async function(){
       throw new Error('An unexpected error eaxmple with hapijs.');
     }

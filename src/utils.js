@@ -43,8 +43,7 @@ function createRouteGenerator(routeDefinitionOverrides, routeConfigOverrides){
     return {
       ...routeConfig,
       config: {
-        validate: controller.validate,
-        response: controller.response,
+        ...controller.config,
         ...routeConfig.config,
         ...routeConfigOverrides
       },
