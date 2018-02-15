@@ -1,4 +1,9 @@
-FROM node:8.9.4
+# Dockerfile to build `binary` image which will have everything packaged; like dependenecies and codes.
+# This image can be configured and run with environment variables.
+FROM node:8.9.4-alpine
+
+# Add build tools necessary for npm installations.
+RUN apk add --no-cache make gcc g++ python
 
 # Install global dependencies for dev image
 RUN npm install -g nodemon

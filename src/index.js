@@ -15,7 +15,7 @@ const server = Hapi.server({ port: config.port });
   ]);
   await server.register({
     plugin: HapiSwagger,
-    options: { }
+    options: { host: `${config.host}:${config.port}` }
   });
   await server.start();
   server.route(routes);
