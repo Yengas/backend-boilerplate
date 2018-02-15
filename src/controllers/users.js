@@ -7,14 +7,14 @@ module.exports = ({}) => ({
     validate: {},
     response: { schema: userSchema },
     handler: async function(){
-      return Boom.notImplemented('User retrieve endpoint is not implement yet!');
+      return Boom.notImplemented();
     }
   },
   indexPost: {
     validate: { payload: Joi.object().keys({ id: Joi.number().required() }).label('User post request.') },
     response: { schema: requestSuccessfulSchema },
     handler: async function(){
-      throw new Error('An error eaxmple with hapijs.');
+      throw new Error('An unexpected error eaxmple with hapijs.');
     }
   },
 });

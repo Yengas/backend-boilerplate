@@ -2,6 +2,8 @@ const Hapi = require('hapi');
 const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
+const ErrorStandard = require('./plugins/error-standard');
+const errorCodes = require('./resources/error-codes');
 const config = require('./config');
 const dependencies = {};
 const controllers = require('./controllers')(dependencies);
@@ -11,8 +13,12 @@ const server = Hapi.server({ port: config.port });
 (async function(){
   await server.register([
     Inert,
-    Vision
+    Vision,
   ]);
+  await server.register({
+    plugin: ErrorStandard,
+    options: { errorCodes }
+  });
   await server.register({
     plugin: HapiSwagger,
     options: { host: `${config.host}:${config.port}` }
