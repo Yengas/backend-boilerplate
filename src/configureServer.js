@@ -17,7 +17,7 @@ async function registerProductionPlugins(config, server){
 
   await server.register({
     plugin: HapiSwagger,
-    options: { host: `${config.host}:${config.port}` }
+    options: { host: `${config.swagger.host}:${config.swagger.port}` }
   });
 }
 
