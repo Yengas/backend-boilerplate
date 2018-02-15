@@ -1,9 +1,10 @@
 const Hapi = require('hapi');
 const config = require('./config');
-const dependencies = {};
+const log = require('./log')(config.logging);
 const { registerProductionPlugins } = require('./configureServer');
 
 (async function(){
+  const dependencies = { log };
   const controllers = require('./controllers')(dependencies);
   const routes = require('./routes')({ controllers, routeConfigOverrides: { tags: ['api'] } });
   const server = Hapi.server({ port: config.port });
@@ -13,10 +14,11 @@ const { registerProductionPlugins } = require('./configureServer');
   await server.start();
 })()
   .then(() => {
-    console.log(`Started listening on http://${config.host}:${config.port}`);
+    const { host, port } = config;
+    log.info({ host, port }, 'Started listening');
   })
   .catch((err) => {
-    console.error(`There was an error while setting up the server.`);
-    console.error(err);
-    console.error(err.stack);
+    log.error(`There was an error while setting up the server.`);
+    log.error(err);
+    log.error(err.stack);
   });

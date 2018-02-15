@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = ({}) => ({
+module.exports = ({ log }) => ({
   indexGet: {
     config: {
       validate: {},
@@ -10,6 +10,7 @@ module.exports = ({}) => ({
       description: 'Whether the server is up or not.',
     },
     handler: async function(){
+      log.info('Got request for healthz.');
       return { status: true, time: new Date().valueOf() };
     }
   },

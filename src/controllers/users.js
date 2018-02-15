@@ -2,7 +2,7 @@ const Boom = require('boom');
 const Joi = require('joi');
 const { userSchema, requestSuccessfulSchema } = require('../schemas/controllers/common');
 
-module.exports = ({}) => ({
+module.exports = ({ log }) => ({
   indexGet: {
     config: {
       validate: {},
@@ -10,6 +10,7 @@ module.exports = ({}) => ({
       description: 'list users.',
     },
     handler: async function(){
+      log.info('Unimplemented handler called!');
       return Boom.notImplemented();
     }
   },
@@ -20,6 +21,7 @@ module.exports = ({}) => ({
       description: 'change user properties.',
     },
     handler: async function(){
+      log.info('Trying to change user properties...');
       throw new Error('An unexpected error eaxmple with hapijs.');
     }
   },
