@@ -1,12 +1,13 @@
 const Hapi = require('hapi');
 const config = require('./config');
 const dependencies = {};
-const controllers = require('./controllers')(dependencies);
-const routes = require('./routes')({ controllers, routeConfigOverrides: { tags: ['api'] } });
 const { registerProductionPlugins } = require('./configureServer');
-const server = Hapi.server({ port: config.port });
 
 (async function(){
+  const controllers = require('./controllers')(dependencies);
+  const routes = require('./routes')({ controllers, routeConfigOverrides: { tags: ['api'] } });
+  const server = Hapi.server({ port: config.port });
+
   await registerProductionPlugins(config, server, routes);
   await server.route(routes);
   await server.start();
