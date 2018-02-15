@@ -62,8 +62,8 @@ typings/
 # next.js build output
 .next
 
-# package-lock.json, will use yarn.
-package-lock.json
+# ignore yarn.lock, will use package-lock.json.
+yarn.lock
 
 ## Application specific
 # all dotenv environment variables file
