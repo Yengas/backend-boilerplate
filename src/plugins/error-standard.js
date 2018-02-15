@@ -46,7 +46,7 @@ module.exports = {
 
   register(server, options){
     const { errorCodes } = options || {};
-    const { error, value } = Joi.validate(errorCodes, internal.schema);
+    const { error } = Joi.validate(errorCodes, internal.schema);
     if(error) return Promise.reject(error);
 
     const customErrorFixes = [
