@@ -1,10 +1,8 @@
 const Hapi = require('hapi');
-const Inert = require('inert');
-const Vision = require('vision');
-const HapiSwagger = require('hapi-swagger');
 const Boom = require('boom');
 const Felicity = require('felicity');
 
+const { registerProductionPlugins } = require('../src/configureServer');
 const { deepGet, mergeRoutes } = require('../src/utils');
 const config = require('../src/config');
 const controllers = require('../src/controllers')({});
@@ -16,7 +14,7 @@ const modifiedOriginalRoutes = require('../src/routes')({
 const mockRoutes = require('../__mocks__/routes')({
   routeConfigOverrides: { tags: ['api'] }
 });
-const server = Hapi.server({ host: config.host, port: config.port });
+const server = Hapi.server({ port: config.port });
 
 async function mockHandler(request){
   const schema = deepGet(request, 'route.settings.response.schema');
@@ -30,13 +28,11 @@ async function mockHandler(request){
 }
 
 (async function(){
-  await server.register([
-    Inert,
-    Vision,
-    HapiSwagger,
-  ]);
+  const routes = mergeRoutes(modifiedOriginalRoutes, mockRoutes);
+
+  await registerProductionPlugins(config, server);
+  await server.route(routes);
   await server.start();
-  await server.route(mergeRoutes(modifiedOriginalRoutes, mockRoutes));
 })()
   .then(() => {
     console.log(`Started listening on http://${config.host}:${config.port}`);
