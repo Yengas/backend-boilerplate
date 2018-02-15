@@ -24,6 +24,7 @@
     "hapi-swagger": "^9.0.2",
     "inert": "^5.1.0",
     "joi": "^13.1.2",
+    "pino": "^4.10.4",
     "vision": "^5.3.1"
   },
   "devDependencies": {
@@ -37,6 +38,9 @@
     "jest": "^22.3.0"
   },
   "jest": {
-    "testPathIgnorePatterns": ["__tests__/helper.js", "node_modules"]
+    "testPathIgnorePatterns": [
+      "__tests__/helper.js",
+      "node_modules"
+    ]
   }
 }
