@@ -8,7 +8,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node bin/index.js",
-    "serve:mock": "node bin/mock-api.js"
+    "serve:mock": "node bin/mock-api.js",
+    "test": "NODE_ENV=test jest --forceExit --verbose",
+    "test:unit": "npm test -- __tests__/unit",
+    "test:integration": "npm test -- __tests__/integration",
+    "lint": "eslint src bin __mocks__ __tests__",
+    "lint:app": "eslint src bin",
+    "lint:mocks": "eslint __mocks__",
+    "lint:tests": "eslint __tests__"
   },
   "dependencies": {
     "boom": "^7.1.1",
@@ -26,6 +33,10 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "felicity": "^2.4.5"
+    "felicity": "^2.4.5",
+    "jest": "^22.3.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["<rootDir>/__tests__/helper.js"]
   }
 }
