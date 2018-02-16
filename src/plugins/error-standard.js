@@ -10,6 +10,14 @@ function checkIfAsyncThrowError(boom){
     boom.message === 'An internal server error occurred';
 }
 
+function createGenericErrorChecker(invalidMessageRegex = /[ A-Z]+/){
+  return function checkIfGenericError({statusCode, message, error}){
+    return statusCode &&
+      statusCode.constructor === Number &&
+      (!message || error === message || message.match(invalidMessageRegex));
+  };
+}
+
 function checkIfInvalidJson(boom){
   return boom.statusCode === 400 && boom.message === 'Invalid request payload JSON format';
 }
@@ -24,16 +32,19 @@ function fixBoomPayload(boom, message){
 }
 
 function fixBoomPayloadWithCode(boom, code, errorCodes){
-  return fixBoomPayload(boom, errorCodes.http[code] || errorCodes.noCustomMessage || boom.error);
+  return fixBoomPayload(boom, errorCodes.http[code] || errorCodes.noCustomMessage || boom.message || boom.error);
 }
 
 const internal = {
   schema: Joi.object().keys({
-    http: Joi.object().unknown().required(),
-    noCustomMessage: Joi.string().required(),
-    invalidRequestBody: Joi.string().required(),
-    invalidPayloadJson: Joi.string().required(),
-  }).unknown().required()
+    invalidMessageRegex: Joi.object().type(RegExp).optional(),
+    errorCodes: Joi.object().keys({
+      http: Joi.object().unknown().required(),
+      noCustomMessage: Joi.string().required(),
+      invalidRequestBody: Joi.string().required(),
+      invalidPayloadJson: Joi.string().required(),
+    }).unknown().required()
+  }).optionalKeys('invalidMessageRegex')
 };
 
 /**
@@ -45,14 +56,14 @@ module.exports = {
   version: '0.0.1',
 
   register(server, options){
-    const { errorCodes } = options || {};
-    const { error } = Joi.validate(errorCodes, internal.schema);
-    if(error) return Promise.reject(error);
+    Joi.assert(options, internal.schema);
+    const { errorCodes, invalidMessageRegex } = options || {};
 
     const customErrorFixes = [
       { check: checkIfAsyncThrowError, fix: (res) => fixBoomPayloadWithCode(res, 500, errorCodes) },
       { check: checkIfInvalidPayload, fix: (res) => fixBoomPayload(res, errorCodes.invalidRequestBody) },
       { check: checkIfInvalidJson, fix: (res) => fixBoomPayload(res, errorCodes.invalidPayloadJson) },
+      { check: createGenericErrorChecker(invalidMessageRegex), fix: (res, { statusCode }) => fixBoomPayloadWithCode(res, statusCode, errorCodes) },
     ];
 
     server.ext('onPreResponse', function(req, h){
@@ -62,13 +73,7 @@ module.exports = {
       const customError = customErrorFixes.find(({ check }) => check(payload));
 
       if(customError){
-        customError.fix(res);
-      } else if(
-        payload.statusCode &&
-        payload.statusCode.constructor === Number &&
-        (!payload.message || payload.error === payload.message)
-      ){
-        fixBoomPayloadWithCode(res, payload.statusCode, errorCodes);
+        customError.fix(res, payload);
       }
 
       return h.continue;
