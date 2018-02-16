@@ -5,6 +5,8 @@ FROM node:8.9.4-alpine AS base
 FROM base AS builder
 # Add build tools necessary for npm installations.
 RUN apk add --no-cache make gcc g++ python
+# Add git for public project installing
+RUN apk add --no-cache git
 
 WORKDIR /application
 

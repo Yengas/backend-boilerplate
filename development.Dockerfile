@@ -4,6 +4,8 @@ FROM node:8.9.4-alpine
 
 # Add build tools necessary for npm installations.
 RUN apk add --no-cache make gcc g++ python
+# Add git for public project installing
+RUN apk add --no-cache git
 
 # Install global dependencies for dev image
 RUN npm install -g nodemon
