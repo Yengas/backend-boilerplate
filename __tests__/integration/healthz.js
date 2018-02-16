@@ -1,12 +1,13 @@
 const Joi = require('joi');
 const { setupServer, setupTestLogger } = require('../helper');
+const config = require('../../src/config');
 const log = setupTestLogger();
 
 describe('healthz controller', () => {
   let server;
 
   beforeAll(async () => {
-    server = await setupServer({ log });
+    server = await setupServer({ log }, { jwt: config.auth.jwt });
   });
 
   describe('GET /', () => {

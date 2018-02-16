@@ -14,7 +14,7 @@ module.exports = {
   },
   auth: {
     jwt: {
-      key: process.env.JWT_KEY,
+      key: process.env.JWT_KEY || 'nonSecure',
       algorithm: process.env.JWT_ALGORITHM || 'HS256',
     },
   }
