@@ -11,5 +11,11 @@ module.exports = {
   logging: {
     name: 'backend-boilerplate',
     level: 'info'
+  },
+  auth: {
+    jwt: {
+      key: process.env.JWT_KEY,
+      algorithm: process.env.JWT_ALGORITHM || 'HS256',
+    },
   }
 };

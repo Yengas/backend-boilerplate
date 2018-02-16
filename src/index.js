@@ -2,9 +2,11 @@ const Hapi = require('hapi');
 const config = require('./config');
 const log = require('./log')(config.logging);
 const { registerProductionPlugins } = require('./configureServer');
+const { createJWTInstance } = require('./auth');
 
 (async function(){
-  const dependencies = { log };
+  const jwt = createJWTInstance(config.auth.jwt);
+  const dependencies = { log, jwt };
   const controllers = require('./controllers')(dependencies);
   const routes = require('./routes')({ controllers, routeConfigOverrides: { tags: ['api'] } });
   const server = Hapi.server({ port: config.port });
