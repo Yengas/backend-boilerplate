@@ -5,7 +5,8 @@ const Felicity = require('felicity');
 const { registerProductionPlugins } = require('../src/configureServer');
 const { deepGet, mergeRoutes } = require('../src/utils');
 const config = require('../src/config');
-const controllers = require('../src/controllers')({});
+const log = require('../src/log')({ ...config.logging, name: 'mock-api' });
+const controllers = require('../src/controllers')({ log });
 const modifiedOriginalRoutes = require('../src/routes')({
   controllers,
   routeDefinitionOverrides: { handler: mockHandler },
@@ -18,12 +19,14 @@ const server = Hapi.server({ port: config.port });
 
 async function mockHandler(request){
   const schema = deepGet(request, 'route.settings.response.schema');
+  const { method, path } = request;
+
   if(!schema){
-    console.log(`Got a request for ${request.method} ${request.path} which doesn't have a response schema.`);
+    log.info({ method, path }, 'No response schema for this endpoint.');
     return Boom.notImplemented(`Don't have a response schema for ${request.method} ${request.path}`);
   }
 
-  console.log(`Generating mock response for ${request.method} ${request.path}`);
+  log.info({ method, path },`Generating mock response.`);
   return Felicity.example(request.route.settings.response.schema);
 }
 
@@ -35,10 +38,10 @@ async function mockHandler(request){
   await server.start();
 })()
   .then(() => {
-    console.log(`Started listening on http://${config.host}:${config.port}`);
+    const { host, port } = config;
+    log.info({ host, port }, 'Started listening');
   })
   .catch((err) => {
-    console.error(`There was an error while setting up the mock-api.`);
-    console.error(err);
-    console.error(err.stack);
+    log.error(`There was an error while setting up the mock-api.`);
+    log.error(err);
   });

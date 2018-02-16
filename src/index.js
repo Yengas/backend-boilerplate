@@ -20,5 +20,4 @@ const { registerProductionPlugins } = require('./configureServer');
   .catch((err) => {
     log.error(`There was an error while setting up the server.`);
     log.error(err);
-    log.error(err.stack);
   });
