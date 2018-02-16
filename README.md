@@ -8,6 +8,7 @@ This is a backend boilerplate project that uses latest ES6 features and HapiJS v
 --------------------
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yengas/backend-boilerplate)
+[![Documentation](	https://img.shields.io/swagger/valid/2.0/https/yengas-boilerplate.herokuapp.com/swagger.json.svg)](https://yengas-boilerplate.herokuapp.com/documentation)
 
 Table of contents
 =================
@@ -17,6 +18,7 @@ Table of contents
    * [Structure](#structure)
    * [Documentation](#documentation)
    * [Initial Setup](#initial-setup)
+   * [Configuration](#configuration)
    * [Running the project](#running-the-project)
       * [Using Docker](#using-docker)
         * [Docker-Compose file](#docker-compose-file)
@@ -53,11 +55,12 @@ Table of contents
 ├── Dockerfile              # production dockerfile
 ├── Makefile                # make file for easing docker usage
 └── docker-compose.yml      # reference docker-compose for dev
-
 ```
+
 # Documentation
 # Initial Setup
 Cloning the repository, what to change.
+# Configuration
 # Running the project
 Explains how to run the project
 ## Using Docker
@@ -67,6 +70,4 @@ Deployment related info. heroku, docker, other platforms.
 # Tests
 Test engine used how to go about unit tests, integration tests. 
 # Mocks
-
 # FAQ
-
