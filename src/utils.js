@@ -45,7 +45,7 @@ function createRouteGenerator(routeDefinitionOverrides, routeConfigOverrides){
       config: {
         ...controller.config,
         ...routeConfig.config,
-        ...routeConfigOverrides
+        ...routeConfigOverrides,
       },
       handler: controller.handler,
       ...routeDefinitionOverrides

@@ -2,13 +2,13 @@ const JWT = require('jsonwebtoken');
 
 /**
  * Validates the decoded jwt token, without any checks.
- * @param _
- * @param __
- * @param callback the callback to call with validation.
+ * @param decoded value for the jwt token.
+ * @param req the request object.
+ * @param h the hapijs h object.
  * @return {*}
  */
-function validateTokenNoop(_, __, callback){
-  return callback(null, true);
+async function validateTokenNoop(decoded, req, h){
+  return { isValid: true };
 }
 
 function createJWTInstance({ key, algorithm }){

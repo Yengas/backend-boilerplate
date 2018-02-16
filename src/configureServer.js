@@ -21,7 +21,17 @@ async function registerSwaggerPlugins(server, { host, port }){
 
   await server.register({
     plugin: HapiSwagger,
-    options: { host: `${host}:${port}` }
+    options: {
+      host: `${host}:${port}`,
+      securityDefinitions: {
+        jwt: {
+          type: 'apiKey',
+          name: 'Authorization',
+          in: 'header'
+        }
+      },
+      security: [{ 'jwt': [] }]
+    }
   });
 }
 
@@ -47,7 +57,7 @@ async function registerErrorStandardPlugin(server){
  */
 async function registerJWTPlugins(server, { key, algorithm }, validate = validateTokenNoop){
   await server.register(HapiAuthJWT2);
-  await server.auth.strategy('jwt', 'jwt', { key, validate, verifyOptions: { algorithm } });
+  await server.auth.strategy('jwt', 'jwt', { key, validate, verifyOptions: { algorithm, ignoreExpiration: true } });
 }
 
 /**
