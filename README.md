@@ -37,9 +37,10 @@ Table of contents
 │   ├── unit        
 │   ├── integration 
 │   └── helper.js   # helper functions that will be re-used in tests
-├── bin             # scripts that gets run directly
-│   ├── mock-api.js # uses joi to create mock endpoints from routes
-│   └── index.js    # entrypoint for our application
+├── bin                     # scripts that gets run directly
+│   ├── mock-api.js         # uses joi to create mock endpoints from routes
+│   ├── swagger-generate.js # generates the swagger.json and saves it to given path
+│   └── index.js            # entrypoint for our application
 ├── src                     # main source folder
 │   ├── utils.js            # re-used functions
 │   ├── schemas             # joi schemas for the app

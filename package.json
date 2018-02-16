@@ -18,7 +18,8 @@
     "lint": "eslint src bin __mocks__ __tests__",
     "lint:app": "eslint src bin",
     "lint:mocks": "eslint __mocks__",
-    "lint:tests": "eslint __tests__"
+    "lint:tests": "eslint __tests__",
+    "swagger-generate": "node bin/swagger-generate.js"
   },
   "dependencies": {
     "boom": "^7.1.1",
