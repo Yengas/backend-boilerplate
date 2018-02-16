@@ -9,7 +9,7 @@ const { registerProductionPlugins } = require('./configureServer');
   const routes = require('./routes')({ controllers, routeConfigOverrides: { tags: ['api'] } });
   const server = Hapi.server({ port: config.port });
 
-  await registerProductionPlugins(config, server, routes);
+  await registerProductionPlugins(server, config);
   await server.route(routes);
   await server.start();
 })()

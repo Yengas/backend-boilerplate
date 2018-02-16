@@ -4,7 +4,13 @@ const HapiSwagger = require('hapi-swagger');
 const ErrorStandard = require('./plugins/error-standard');
 const errorCodes = require('./resources/error-codes');
 
-async function registerProductionPlugins(config, server){
+/**
+ * Registers plugins that will be used in production.
+ * @param server
+ * @param config
+ * @return {Promise<void>}
+ */
+async function registerProductionPlugins(server, config){
   await server.register([
     Inert,
     Vision,

@@ -29,7 +29,7 @@ async function requestSwaggerJson(server, path = '/swagger.json'){
 
 (async function(){
   const server = Hapi.server();
-  await registerProductionPlugins(config, server);
+  await registerProductionPlugins(server, config);
   await server.route(routes);
   await server.start();
 

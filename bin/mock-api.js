@@ -33,7 +33,7 @@ async function mockHandler(request){
 (async function(){
   const routes = mergeRoutes(modifiedOriginalRoutes, mockRoutes);
 
-  await registerProductionPlugins(config, server);
+  await registerProductionPlugins(server, config);
   await server.route(routes);
   await server.start();
 })()
