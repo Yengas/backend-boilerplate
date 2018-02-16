@@ -4,6 +4,7 @@
 const Hapi = require('hapi');
 const controllerCreator = require('../src/controllers/index');
 const routeCreator = require('../src/routes/index');
+const logCreator = require('../src/log');
 
 async function setupServer(dependencies){
   const controllers = controllerCreator(dependencies);
@@ -15,6 +16,11 @@ async function setupServer(dependencies){
   return server;
 }
 
+function setupTestLogger(){
+  return logCreator({ name: 'tests', level: 'debug' });
+}
+
 module.exports = {
-  setupServer
+  setupServer,
+  setupTestLogger
 };

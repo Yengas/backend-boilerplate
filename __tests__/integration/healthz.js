@@ -1,11 +1,12 @@
 const Joi = require('joi');
-const { setupServer } = require('../helper');
+const { setupServer, setupTestLogger } = require('../helper');
+const log = setupTestLogger();
 
 describe('healthz controller', () => {
   let server;
 
   beforeAll(async () => {
-    server = await setupServer({});
+    server = await setupServer({ log });
   });
 
   describe('GET /', () => {
