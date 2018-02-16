@@ -1,9 +1,9 @@
 const outPath = process.argv[2];
 
-if(!outPath || outPath.constructor != String || outPath.match(/[‘“!#$%&+^<=>`]/)){
-  console.log("Usage examples: ");
-  console.log("\tnpm run swagger-generate -- <outPath>");
-  console.log("\tnode bin/swagger-generate.js <outPath>");
+if(!outPath || outPath.constructor !== String || outPath.match(/[‘“!#$%&+^<=>`]/)){
+  console.log('Usage examples: ');
+  console.log('\tnpm run swagger-generate -- <outPath>');
+  console.log('\tnode bin/swagger-generate.js <outPath>');
   process.exit(-1);
 }
 

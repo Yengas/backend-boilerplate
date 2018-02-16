@@ -26,7 +26,7 @@ async function mockHandler(request){
     return Boom.notImplemented(`Don't have a response schema for ${request.method} ${request.path}`);
   }
 
-  log.info({ method, path },`Generating mock response.`);
+  log.info({ method, path }, `Generating mock response.`);
   return Felicity.example(request.route.settings.response.schema);
 }
 
